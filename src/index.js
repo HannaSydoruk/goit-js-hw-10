@@ -44,7 +44,7 @@ function breedMarkupBuilder(breedDetails) {
     return `<img src="${breedDetails.url}" width="300px"/>
                 <h2>${breedDetails.breeds[0].name}</h2>
                 <p>${breedDetails.breeds[0].description}</p>
-                <p>${breedDetails.breeds[0].temperament}</p>
+                <p class="temperament">${breedDetails.breeds[0].temperament}</p>
                 `;
 }
 
