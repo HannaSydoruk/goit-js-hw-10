@@ -14,21 +14,30 @@ fetchBreeds()
             return `<option value="${id}">${name}</option>`;
         })
         selectEl.innerHTML = result.join();
+
         showEl(selectEl);
     })
+    .catch(() => { showEl(errorEl) })
     .finally(() => { hideEl(loadingEl); });
 
 selectEl.addEventListener('change', (e) => {
     const breedID = selectEl.options[selectEl.selectedIndex].value;
+
     showEl(loadingEl);
     hideEl(selectedBreedEl);
+    hideEl(errorEl);
+
     fetchCatByBreed(breedID)
         .then((breedDetails) => {
             const breadMarkup = breedMarkupBuilder(breedDetails);
             selectedBreedEl.innerHTML = breadMarkup;
+
             showEl(selectedBreedEl);
         })
-        .finally(() => { hideEl(loadingEl); });
+        .catch(() => { showEl(errorEl) })
+        .finally(() => {
+            hideEl(loadingEl);
+        });
 });
 
 function breedMarkupBuilder(breedDetails) {
